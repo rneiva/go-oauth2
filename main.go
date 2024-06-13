@@ -10,9 +10,13 @@ func main() {
 	app := fiber.New()
 
 	config.GoogleConfig()
+	config.GithubConfig()
 
 	app.Get("/google_login", controllers.GoogleLogin)
 	app.Get("/google_callback", controllers.GoogleCallback)
+
+	app.Get("/github_login", controllers.GithubLogin)
+	app.Get("/github_callback", controllers.GithubCallback)
 
 	app.Listen(":8000")
 }

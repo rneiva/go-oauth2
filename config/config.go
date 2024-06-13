@@ -6,11 +6,13 @@ import (
 
 	"github.com/joho/godotenv"
 	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/github"
 	"golang.org/x/oauth2/google"
 )
 
 type Config struct {
 	GoogleLoginConfig oauth2.Config
+	GithubLoginConfig oauth2.Config
 }
 
 var AppConfig Config
@@ -31,4 +33,21 @@ func GoogleConfig() oauth2.Config {
 	}
 
 	return AppConfig.GoogleLoginConfig
+}
+
+func GithubConfig() oauth2.Config {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Some error occurred. Err: %s", err)
+	}
+
+	AppConfig.GithubLoginConfig = oauth2.Config{
+		RedirectURL:  "http://localhost:8000/github_callback",
+		ClientID:     os.Getenv("GITHUB_CLIENT_ID"),
+		ClientSecret: os.Getenv("GITHUB_CLIENT_SECRET"),
+		Scopes:       []string{"user", "repo"},
+		Endpoint:     github.Endpoint,
+	}
+
+	return AppConfig.GithubLoginConfig
 }
