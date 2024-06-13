@@ -11,8 +11,8 @@ func main() {
 
 	config.GoogleConfig()
 
-	app.Post("/google_login", controllers.GoogleLogin)
-	//app.Post("/google_callback", controllers.GoogleCallback)
+	app.Get("/google_login", controllers.GoogleLogin)
+	app.Get("/google_callback", controllers.GoogleCallback)
 
 	app.Listen(":8000")
 }
