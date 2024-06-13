@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/rneiva/go-oauth2/config"
 	"github.com/rneiva/go-oauth2/controllers"
 )
 
